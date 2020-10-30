@@ -1,0 +1,42 @@
+{
+  "seriesId" : "749914",
+  "seriesCode" : "749914",
+  "seriesName" : "狄公灭鼠",
+  "longitudinalUrl" : "http://lv1.vcache.cn/pic/pic/mac2/XAT/20200731113320171708.jpg",
+  "transverseUrl" : "http://lv1.vcache.cn/pic/pic/mac2/XAT/202007311133195684728.jpg",
+  "programType" : "电影",
+  "score" : 7.6,
+  "bcharging" : 1,
+  "volumnCount" : 1,
+  "currentCount" : 1,
+  "scoreCount" : 275,
+  "voteCount" : 245,
+  "seriesCpCode" : "YANHUA00000017MVAST0040005529533",
+  "cpCode" : "yanhua",
+  "terminalId" : "tv",
+  "description" : "并州发生鼠患，大量村民因为鼠患而染病，被困城中。狄仁杰为了挽救全城百姓的性命，追查病源，然而随着调查的深入，原来鼠灾背后竟然还隐藏着一个巨大的阴谋。",
+  "actors" : "陈浩民,苑琼丹,张冬,孙远宁,山荷",
+  "director" : "朱江",
+  "tags" : "古装,悬疑,动作",
+  "year" : "2020",
+  "programType2" : "动作",
+  "metaType" : 0,
+  "programs" : [ {
+    "programCode" : "YANHUA00000017MVAST0040005529533",
+    "name" : "狄公灭鼠",
+    "volumnCount" : 1,
+    "bcharging" : 1,
+    "bpreview" : 0,
+    "movies" : [ {
+      "movieId" : "29749955",
+      "movieCode" : "YANHUA00000000017MMVOD0009842964",
+      "type" : 2,
+      "playURL" : "http://vcache.cn/vod/YANHUA/0729/YANHUA00017227203FIMOV0005529533/20200727132146404f2d6d45b.m3u8",
+      "audioType" : 0,
+      "closedCaptioning" : 0,
+      "duration" : 100,
+      "definition" : 2,
+      "bitrate" : 500
+    } ]
+  } ]
+}

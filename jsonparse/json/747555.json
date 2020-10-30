@@ -1,0 +1,28 @@
+{
+  "seriesId" : "747555",
+  "seriesCode" : "747555",
+  "seriesName" : "嘉人本色",
+  "programType2" : "偶像",
+  "metaType" : 0,
+  "programs" : [ {
+    "name" : "嘉人本色 第2集",
+    "volumnCount" : 2,
+    "bcharging" : 1,
+    "bpreview" : 0,
+    "movies" : [ {
+      "movieId" : "29703952",
+      "type" : 2,
+      "playURL" : "http://lv1.vcache.cn/vod/enbense02.m3u8",
+    } ]
+  }, {
+    "name" : "嘉人本色 第1集",
+    "volumnCount" : 1,
+    "bcharging" : 1,
+    "bpreview" : 0,
+    "movies" : [ {
+      "movieId" : "29703971",
+      "type" : 2,
+      "playURL" : "http://lv1.vcache.cn/vod/enbense01.m3u8",
+    } ]
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "seriesId" : "740831",
+  "seriesCode" : "740831",
+  "seriesName" : "大神猴",
+  "programType2" : "古装",
+  "metaType" : 0,
+  "programs" : [ {
+    "name" : "大神猴 第3集",
+    "volumnCount" : 3,
+    "bcharging" : 1,
+    "bpreview" : 0,
+    "movies" : [ {
+      "movieId" : "295173",
+      "type" : 2,
+      "playURL" : "http://vcache.cn/vod/dashenhou03.m3u8",
+    } ]
+  }, {
+    "name" : "大神猴 第2集",
+    "volumnCount" : 2,
+    "bcharging" : 1,
+    "bpreview" : 0,
+    "movies" : [ {
+      "movieId" : "575148",
+      "type" : 2,
+      "playURL" : "http://vcache.cn/vod/dashenhou02.m3u8",
+    } ]
+  }, {
+    "name" : "大神猴 第1集",
+    "volumnCount" : 1,
+    "bcharging" : 1,
+    "bpreview" : 0,
+    "movies" : [ {
+      "movieId" : "29575",
+      "type" : 2,
+      "playURL" : "http://vcache.cn/vod/dashenhou01.m3u8",
+    } ]
+  } ]
+}

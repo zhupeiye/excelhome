@@ -1,0 +1,42 @@
+{
+  "seriesId" : "751907",
+  "seriesCode" : "751907",
+  "seriesName" : "电磁王之霹雳父子",
+  "longitudinalUrl" : "http://lv1.vcache.cn/pic/pic/mac2/XAT/202008031713166474652.jpg",
+  "transverseUrl" : "http://lv1.vcache.cn/pic/pic/mac2/XAT/202008031713161737933.jpg",
+  "programType" : "电影",
+  "score" : 5.6,
+  "bcharging" : 1,
+  "volumnCount" : 1,
+  "currentCount" : 1,
+  "scoreCount" : 346,
+  "voteCount" : 219,
+  "seriesCpCode" : "YANHUA00000017MVAST0040007173920",
+  "cpCode" : "yanhua",
+  "terminalId" : "tv",
+  "description" : "带电男孩刘雷在一次意外中因电力失控使父亲丧生火海，自己的电能也消失不见。从此封闭内心，在好友的帮助下，刘雷通过“寻电之旅”揭开了一系列邪恶势力的阴谋。",
+  "actors" : "吴建豪,于谦,张小斐,白凯南",
+  "director" : "高飞",
+  "tags" : "喜剧,科幻",
+  "year" : "2020",
+  "programType2" : "动作",
+  "metaType" : 0,
+  "programs" : [ {
+    "programCode" : "YANHUA00000017MVAST0040007173920",
+    "name" : "电磁王之霹雳父子",
+    "volumnCount" : 1,
+    "bcharging" : 1,
+    "bpreview" : 0,
+    "movies" : [ {
+      "movieId" : "29784744",
+      "movieCode" : "YANHUA00000000017MMVOD0009874788",
+      "type" : 2,
+      "playURL" : "http://lv1.vcache.cn/vod/YANHUA/0803/YANHUA00017377559FIMOV0007173920/202007311705138219ed9faf3.m3u8",
+      "audioType" : 0,
+      "closedCaptioning" : 0,
+      "duration" : 100,
+      "definition" : 2,
+      "bitrate" : 500
+    } ]
+  } ]
+}

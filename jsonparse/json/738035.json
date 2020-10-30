@@ -1,0 +1,42 @@
+{
+  "seriesId" : "738035",
+  "seriesCode" : "738035",
+  "seriesName" : "阿丽塔：战斗天使",
+  "longitudinalUrl" : "http://lv1.vcache.cn/pic/pic/mac2/XAT/202007091626442962475.jpg",
+  "transverseUrl" : "http://lv1.vcache.cn/pic/pic/mac2/XAT/202007091626439809345.jpg",
+  "programType" : "电影",
+  "score" : 9.1,
+  "bcharging" : 1,
+  "volumnCount" : 1,
+  "currentCount" : 1,
+  "scoreCount" : 1593,
+  "voteCount" : 1536,
+  "seriesCpCode" : "00600637000000010000000005363825",
+  "cpCode" : "bstv",
+  "terminalId" : "tv",
+  "description" : "外科医生依德捡到了只剩下头部的机械少女带回家中，给她装上了本来为自己已故的女儿所准备的义体，并取名阿丽塔。阿丽塔结识了青年雨果，开始接触机动球运动，并展现出了惊人的格斗天赋。机动球比赛冠军能够获得前往撒冷生活的资格，阿丽塔决定利用自己的天赋参加比赛。",
+  "actors" : "罗莎·萨拉查,克里斯托弗·瓦尔兹,基恩·约翰逊",
+  "director" : "罗伯特·罗德里格兹",
+  "tags" : "动作,科幻,冒险",
+  "year" : "2019",
+  "programType2" : "冒险",
+  "metaType" : 0,
+  "programs" : [ {
+    "programCode" : "00600637000000010000000005363825",
+    "name" : "阿丽塔：战斗天使",
+    "volumnCount" : 1,
+    "bcharging" : 1,
+    "bpreview" : 0,
+    "movies" : [ {
+      "movieId" : "29526240",
+      "movieCode" : "00600637000000020000000026700034",
+      "type" : 2,
+      "playURL" : "http://lv1.vcache.cn/vod/BSTV/0707/2351074/535831.m3u8",
+      "audioType" : 0,
+      "closedCaptioning" : 0,
+      "duration" : 100,
+      "definition" : 2,
+      "bitrate" : 500
+    } ]
+  } ]
+}
