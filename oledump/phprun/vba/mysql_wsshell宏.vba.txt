@@ -1,0 +1,449 @@
+
+=VBA妯℃澘-鍒拌揣鐐规暟.xls=============
+
+=20=============
+Attribute VB_Name = "Sheet3"
+Attribute VB_Base = "0{00020820-0000-0000-C000-000000000046}"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = True
+Attribute VB_TemplateDerived = False
+Attribute VB_Customizable = True
+Private Sub Worksheet_Change(ByVal Target As Range)
+    
+    'MsgBox "1"
+    
+    If Target.Address = "$E$1" And [e1].Value <> "" Then
+        
+        
+        Call 到货点数
+        
+        
+    ElseIf Target.Address = "$E$1" And [e1].Value = "" Then
+        
+        
+        Call 到货点数
+        
+    End If
+    'SendKeys "{up}" '当前单元格向上走一位
+    
+End Sub
+
+
+=36=============
+Attribute VB_Name = "模块1"
+'Function AddNewSheetPlaceInLast(str As String)
+'
+'    Worksheets.Add after:=Worksheets(Worksheets.Count)
+'    ActiveSheet.Name = str
+'
+'End Function
+Public iFileName As String
+
+Function readFileNAme(f As FileDialog, she As Worksheet, ra As Range)
+    
+    
+    Application.DisplayAlerts = False
+    
+    ra.ClearContents
+    
+    
+    iFileName = Application.GetOpenFilename
+    
+    If iFileName = "False" Then
+        MsgBox "没有选择文件!"
+    Else
+        wz = InStrRev(iFileName, "\")
+        Path = Left(iFileName, wz)
+        fname = Right(iFileName, Len(iFileName) - wz)
+        MsgBox "选择的文件名为:" & fname & vbCrLf & "路径为:" & Path
+        Workbooks.Open (iFileName) '选择并打开默认初始路径下的文件夹中的文件
+        ActiveWorkbook.Sheets(1).Range("a1:z65533").Copy ra '实现复制
+        ActiveWorkbook.Close  '关闭文件
+    End If
+    
+    
+    
+    
+    readFileNAme = fname
+    
+    
+    Application.DisplayAlerts = True
+    
+End Function
+
+Sub readFileContent()
+    Sheets("点数核对工作台").Unprotect Password:=Sheets("点数核对工作台").Range("g2").Value
+    Dim f1 As FileDialog
+    Dim she As Worksheet
+    Set she = Sheets("点数核对工作台")
+    Dim ra1 As Range
+    Set ra1 = she.Range("a3:z65536")
+    
+    Sheets("首页").Range("f4") = readFileNAme(f1, she, ra1)
+    
+    Sheets("点数核对工作台").Columns("g:g").Insert Shift:=xlToRight
+    
+    Sheets("点数核对工作台").Range("b2") = "=SUBTOTAL(9,$F$4:$F$65536)"
+    Sheets("点数核对工作台").Range("f2") = "累计清点数量："
+    Sheets("点数核对工作台").Range("g2") = "=sum($g$4:$G$65536)"
+    Sheets("点数核对工作台").Range("h2:z2").Clear
+    Sheets("点数核对工作台").Range("d2") = "=subtotal(9,$g$4:$G$65536)"
+    Sheets("点数核对工作台").Range("g3") = "实收数量"
+    
+    With Sheets("首页").Range("f4")
+        .HorizontalAlignment = xlCenter '水平居中
+        .VerticalAlignment = xlCenter '垂直居中
+        .ShrinkToFit = False  '缩小字体适应单元格
+    End With
+    
+    With Sheets("点数核对工作台").Columns("g:g")
+        .Font.Size = 13
+        .HorizontalAlignment = xlCenter '水平居中
+        .VerticalAlignment = xlCenter '垂直居中
+        .WrapText = False   '自动换行
+        .ShrinkToFit = False  '缩小字体适应单元格
+    End With
+    Sheets("点数核对工作台").Range("g1:h1").Merge
+    Worksheets("点数核对工作台").Select
+    
+    With Sheets("点数核对工作台")
+        .Range("a1:z65536").Locked = True
+        .Range("b1", "e1").Locked = False
+        .Protect Password:=Range("g2").Value, AllowFormattingColumns:=True, AllowFormattingCells:=True, AllowFiltering:=True, AllowSorting:=True
+        
+    End With
+    
+    ThisWorkbook.Save
+    
+End Sub
+
+
+
+
+=37=============
+Attribute VB_Name = "模块2"
+
+Sub 到货点数()
+    ThisWorkbook.Worksheets("点数核对工作台").Activate
+    SendKeys "{up}" '当前单元格向上走一位
+    On Error Resume Next
+    
+    
+    ActiveSheet.Unprotect Password:=Range("g2").Value
+    Sheets("首页").Unprotect Password:=Range("g2").Value
+    Dim rrng As Range
+    
+    
+    Dim WshShell As Object     '代替msgbox避免窗体失焦
+    Set WshShell = CreateObject("Wscript.Shell")
+    
+    
+    
+    
+    Set rrng = Range("a1")
+    With rrng.EntireRow
+        .RowHeight = 30
+        .Font.Size = 16
+        .Font.Bold = True
+        .HorizontalAlignment = xlCenter '水平居中
+        .VerticalAlignment = xlCenter '垂直居中
+        .WrapText = False   '自动换行
+        .ShrinkToFit = False  '缩小字体适应单元格
+    End With
+    
+    Rows(3).Font.Bold = True
+    Range("e:e").Font.Bold = False 'e列字体取消加粗状态
+    Range("e:e").Font.Size = 13
+    
+    [e1].Select 'e1 单元格选中
+    
+    If [e1] <> "" Then
+        
+        
+        Set rrng = ActiveSheet.Range("e3:h65536").Find(what:=Trim([e1]), LookAt:=xlWhole) '范围内查找e1单元格内的值
+        If rrng Is Nothing Then
+            WshShell.popup "找不到，核对一下", 2, "提示", 64
+            
+        ElseIf rrng <> "" Then
+            
+            rrng.EntireRow.Select  '定位到被查找值
+            rrng.Offset(0, 2).Value = rrng.Offset(0, 2).Value + 1 '实际点数+1
+            rrng.Font.Size = 15
+            rrng.Font.Bold = True '查找到的值加粗
+            
+            [e1].Select '选中e1
+            [e1].Font.Underline = True
+            [e1].Font.Bold = True
+            
+            If rrng.Offset(0, 2) < rrng.Offset(0, 1) Then '如果实际数量小于预收数量
+                
+                rrng.EntireRow.Interior.Color = RGB(0, 255, 255) '改变行颜色为蓝色
+                
+                
+                [e1].Interior.Color = RGB(0, 255, 255) '改变e1单元格颜色为蓝色
+                
+            ElseIf rrng.Offset(0, 2) = rrng.Offset(0, 1) Then
+                
+                rrng.EntireRow.Interior.Color = RGB(0, 255, 0)
+                
+                [e1].Interior.Color = RGB(0, 255, 0)
+                
+            ElseIf rrng.Offset(0, 2) > rrng.Offset(0, 1) Then
+                
+                rrng.EntireRow.Interior.Color = RGB(255, 0, 0)
+                
+                [e1].Interior.Color = RGB(255, 0, 0)
+                
+                
+                WshShell.popup "已超出预收数量", 2, "提示", 64  '2 秒后关闭
+                
+                
+            Else
+                
+                WshShell.popup "请输入正确的SKU号码", 2, "提示", 64
+                Set WshShell = Nothing
+                
+            End If
+            
+            
+        End If
+        
+        
+        
+    End If
+    
+    
+    
+    Dim oWK As Worksheet '工作表自适应列宽'
+    Set oWK = Excel.ActiveSheet
+    With oWK
+        .Columns.AutoFit
+    End With
+    
+    
+    With Sheets("点数核对工作台")
+        .Range("a1:z65536").Locked = True
+        .Range("b1", "e1").Locked = False
+        .Protect Password:=Range("g2").Value, AllowFormattingColumns:=True, AllowFormattingCells:=True, AllowFiltering:=True, AllowSorting:=True
+        
+    End With
+    
+     With Sheets("首页")
+        .Range("f6") = Sheets("点数核对工作台").Range("b1")
+        .Range("a1:z65536").Locked = False
+        .Range("f6").Locked = True
+        .Protect Password:=Range("g2").Value
+', AllowFormattingColumns:=True, AllowFormattingCells:=True, AllowFiltering:=True, AllowSorting:=True
+        
+    End With
+    
+    ThisWorkbook.Save
+    
+End Sub
+
+Function sleOlp()
+    
+    
+'    ActiveSheet.Unprotect Password:=Range("g2").Value
+    Dim i As Long
+    
+    Dim sht As Range
+    
+    
+    ActiveSheet.Cells(4, 8).Select
+    ActiveWindow.FreezePanes = False
+    ActiveWindow.FreezePanes = True
+    
+    Set sht = ActiveSheet.Range("b1")
+    Range("c4").Select
+    With sht.EntireRow
+        .Font.Size = 16
+        .Font.Bold = True
+        .HorizontalAlignment = xlCenter '水平居中
+        .VerticalAlignment = xlCenter '垂直居中
+        .WrapText = False   '自动换行
+        .ShrinkToFit = False  '缩小字体适应单元格
+    End With
+    i = ActiveSheet.Range("a65535").End(xlUp).Row
+    
+    If sht <> "" Then
+        sht.Font.Underline = True
+        
+        
+        '在引用区域中的第四列做筛选，筛选内容等于sht'
+        ActiveSheet.Range("a3:q" & i).AutoFilter Field:=3, Criteria1:="=" & sht
+        
+        Dim oWK As Worksheet '工作表自适应列宽'
+        Set oWK = Excel.ActiveSheet
+        With oWK
+            .Columns.AutoFit
+        End With
+        
+    Else
+        ActiveSheet.Range("a3:g" & i).AutoFilter '取消筛选状态'
+        ActiveSheet.Range("c4").Select
+        
+    End If
+    
+    
+'    With ActiveSheet
+'        .Range("a1:z65536").Locked = True
+'        .Range("b1", "e1").Locked = False
+'        .Protect Password:=Range("g2").Value, AllowFormattingColumns:=True, AllowFormattingCells:=True, AllowFiltering:=True, AllowSorting:=True
+'
+'    End With
+    
+    ThisWorkbook.Save
+    
+    
+    
+    
+End Function
+
+Sub 筛选箱单()
+  ActiveSheet.Unprotect Password:=Range("g2").Value
+    Dim dic As Object
+    Set dic = CreateObject("scripting.dictionary")
+    Dim conn As ADODB.Connection
+    Dim rs As ADODB.Recordset
+    Dim srr
+    Dim qrr
+    Dim rng As Range
+    Dim sql As String
+    Set conn = New ADODB.Connection
+    Set rs = New ADODB.Recordset
+    '配置连接串
+    conn.ConnectionString = "Driver={MySQL ODBC 8.0 Unicode Driver};Server=127.0.0.1;DB=wps;UID=root;PWD=root;OPTION=3;"
+    conn.Open
+   
+        'srr = Application.Transpose(rs.GetRows)
+        
+            
+ 
+     
+    If Range("b2") <> Range("d2") Then
+        If MsgBox("当前箱清点数量与预售数量有误差，是否继续?", vbYesNo) = vbYes Then
+            s = sleOlp()
+            If Range("b1") <> "" Then
+          
+            qrr = Sheets("点数核对工作台").Range("a4:q" & Range("a65536").End(xlUp).Row)
+            For i = 1 To UBound(qrr)
+            If qrr(i, 5) <> "" Then
+               sql = "UPDATE kunshanfour SET kunshanfour.hadqty ='" & qrr(i, 7) & "'WHERE kunshanfour.OLP = '" & Sheets("首页").Range("f6") & "' and kunshanfour.CCID = '" & qrr(i, 5) & "'"
+               dic(i) = sql
+            End If
+            Next
+            
+            End If
+            
+            For Each d In dic.keys()
+               rs.Open dic(d), conn
+            Next
+            
+            Set rs = Nothing
+            rs.Close
+           
+            conn.Close: Set conn = Nothing
+           ' Range("b2").Select
+                      
+        Else
+            Range("b2").Select
+            
+            
+            '从test数据库的YGXM表中取出所有数据
+            
+'            Set rs = conn.Execute(sql)
+'            rs.Close: Set rs = Nothing
+'            conn.Close: Set conn = Nothing
+        End If
+    Else
+        s = sleOlp()
+        
+    End If
+     With ActiveSheet
+        .Range("a1:z65536").Locked = True
+        .Range("b1", "e1").Locked = False
+        .Protect Password:=Range("g2").Value, AllowFormattingColumns:=True, AllowFormattingCells:=True, AllowFiltering:=True, AllowSorting:=True
+        
+    End With
+    
+    
+    ThisWorkbook.Worksheets("点数核对工作台").Activate
+    
+    
+    
+End Sub
+
+Function 清除所选行标记和数量()
+    Application.EnableEvents = False
+    ActiveSheet.Unprotect Password:=Range("g2").Value
+    Dim rng As Range
+    Set rng = ActiveCell
+    
+    If rng.Offset(0, 2).Column = 7 And rng.Row > 3 Then
+        
+        rng.Offset(0, 2) = rng.Offset(0, 2) - 1
+        If rng.Offset(0, 2) < rng.Offset(0, 1) Then   '如果实际数量小于预收数量
+            
+            rng.EntireRow.Interior.Color = RGB(0, 255, 255) '改变行颜色为蓝色
+            
+            
+            [e1].Interior.Color = RGB(0, 255, 255) '改变e1单元格颜色为蓝色
+            
+        ElseIf rng.Offset(0, 2) = rng.Offset(0, 1) Then
+            
+            rng.EntireRow.Interior.Color = RGB(0, 255, 0)
+            
+            [e1].Interior.Color = RGB(0, 255, 0)
+            
+            
+        ElseIf rng.Offset(0, 2) > rng.Offset(0, 1) Then
+            
+            rng.EntireRow.Interior.Color = RGB(255, 0, 0)
+            
+            [e1].Interior.Color = RGB(255, 0, 0)
+            
+            
+        End If
+        
+    End If
+    
+    
+    If rng.Offset(0, 2) <= 0 And rng.Row > 3 Then
+        rng.Offset(0, 2) = ""
+        rng.Offset(0, 2).EntireRow.Interior.Pattern = xlNone
+        [e1].Interior.Pattern = xlNone
+    End If
+    With ActiveSheet
+        .Range("a1:z65536").Locked = True
+        .Range("b1", "e1").Locked = False
+        .Protect Password:=Range("g2").Value, AllowFormattingColumns:=True, AllowFormattingCells:=True, AllowFiltering:=True, AllowSorting:=True
+        
+    End With
+    Application.EnableEvents = True
+    
+    ThisWorkbook.Save
+End Function
+
+Function clearAll()
+    ActiveSheet.Unprotect Password:=Range("g2").Value
+    ActiveSheet.Cells.Interior.ColorIndex = 0
+    Range("g5:g65535").Clear
+    
+    
+    With ActiveSheet
+        .Range("a1:z65536").Locked = True
+        .Range("b1", "e1").Locked = False
+        .Range("b3").Locked = False
+        .Protect Password:=Range("g2").Value, AllowFormattingColumns:=True, AllowFormattingCells:=True, AllowFiltering:=True, AllowSorting:=True
+        
+    End With
+End Function
+
+
+
+
+
+
